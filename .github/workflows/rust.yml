@@ -15,8 +15,12 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Install libpcap
-      run: sudo apt-get update && sudo apt-get install -y libpcap-dev
+    # هذه الخطوة ضرورية لتثبيت المكتبات النظامية التي يعتمد عليها كودك
+    - name: Install system dependencies
+      run: sudo apt-get update && sudo apt-get install -y libpcap-dev pkg-config libssl-dev
       
     - name: Build
       run: cargo build --verbose
+      
+    - name: Run tests
+      run: cargo test --verbose
